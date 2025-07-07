@@ -1,0 +1,581 @@
+/* Empêcher le scroll de la page principale */
+html,
+body {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* Container principal avec scroll interne */
+.stats-container {
+  padding: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
+}
+
+/* Assurer que le conteneur parent du composant prend toute la hauteur */
+#app,
+.app-container {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Custom scrollbar pour WebKit */
+.stats-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stats-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.stats-container::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.stats-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+/* Styles ultra-compacts avec effets visuels modernes */
+.stats-header {
+  margin-bottom: 0.5rem;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  padding: 0.5rem 0;
+  border-radius: 0 0 12px 12px;
+}
+
+.error-message,
+.no-data-message {
+  background: #ffebee;
+  color: #d32f2f;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffcdd2;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.stats-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  background: linear-gradient(135deg, #1e40af, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.filter-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 0.3rem 0.6rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #3b82f6, #06b6d4) border-box;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.filter-select:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Carte de résumé ultra-compacte */
+.summary-card.compact {
+  background: white;
+  border-radius: 8px;
+  padding: 0.4rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  max-height: 90px;
+  position: relative;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.summary-card.compact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1e40af, #3b82f6, #06b6d4, #8b5cf6);
+  background-size: 400% 100%;
+  animation: gradientShift 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.summary-card.compact:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12);
+}
+
+.compact-title {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  color: #1e293b;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: -0.2px;
+}
+
+.summary-info.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 0.25rem;
+}
+
+.summary-stat.compact-stat {
+  text-align: center;
+  padding: 0.2rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 4px;
+  border: 1px solid rgba(59, 130, 246, 0.08);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.summary-stat.compact-stat:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.stat-value.compact-value {
+  font-size: 0.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.05rem;
+  line-height: 1;
+}
+
+.stat-label.compact-label {
+  font-size: 0.6rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Graphiques avec hauteur réduite */
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.chart-card.compact-chart {
+  background: white;
+  border-radius: 16px;
+  padding: 0.5rem; /* Réduit de 0.75rem à 0.5rem */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-height: 250px; /* Réduit de 350px à 280px */
+  position: relative;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Changé de overflow-y: auto à overflow: hidden */
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card.compact-chart::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+}
+
+.chart-card.compact-chart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+}
+
+.chart-title.compact-chart-title {
+  font-size: 0.9rem; /* Réduit de 1rem à 0.9rem */
+  margin-bottom: 0.3rem; /* Réduit de 0.5rem à 0.3rem */
+  color: #1e293b;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  padding: 0.15rem 0; /* Réduit de 0.25rem à 0.15rem */
+  position: relative;
+}
+
+.chart-title.compact-chart-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; /* Réduit de -4px à -2px */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  border-radius: 1px;
+}
+
+.chart-wrapper {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.chart-canvas.compact-canvas {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 8px;
+}
+
+.no-chart-data.compact-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #64748b;
+  font-style: italic;
+  font-size: 0.8rem; /* Réduit de 0.9rem à 0.8rem */
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Tableau avec scroll interne amélioré */
+.monthly-table-container.compact-table {
+  background: white;
+  border-radius: 16px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
+}
+
+.monthly-table-container.compact-table::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.monthly-table-container.compact-table::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.monthly-table-container.compact-table::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1e40af, #3b82f6, #06b6d4);
+  border-radius: 16px 16px 0 0;
+  z-index: 1;
+}
+
+.monthly-table.compact-monthly-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.compact-monthly-table th,
+.compact-monthly-table td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  transition: all 0.2s ease;
+}
+
+.compact-monthly-table th {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.compact-monthly-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.compact-monthly-table tbody tr:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(6, 182, 212, 0.05));
+  transform: scale(1.005);
+}
+
+.compact-monthly-table tfoot th {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+/* Status colors avec effets */
+.status-payé {
+  color: #1e40af;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(30, 64, 175, 0.1);
+}
+
+.status-en {
+  color: #3b82f6;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(59, 130, 246, 0.1);
+}
+
+.status-échoué {
+  color: #06b6d4;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(6, 182, 212, 0.1);
+}
+
+.no-data {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Responsive avec effets préservés */
+@media (max-width: 768px) {
+  .charts-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .summary-info.compact-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.2rem;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .chart-card.compact-chart {
+    max-height: 240px; /* Réduit de 300px à 240px */
+    padding: 0.4rem; /* Réduit de 0.5rem à 0.4rem */
+  }
+
+  .chart-title.compact-chart-title {
+    font-size: 0.8rem; /* Réduit de 0.9rem à 0.8rem */
+    margin-bottom: 0.2rem; /* Réduit de 0.3rem à 0.2rem */
+  }
+
+  .summary-card.compact {
+    max-height: 80px;
+  }
+
+  .monthly-table-container.compact-table {
+    max-height: 300px;
+  }
+
+  .monthly-table.compact-monthly-table {
+    font-size: 0.8rem;
+  }
+
+  .stats-title {
+    font-size: 1.2rem;
+  }
+
+  .compact-title {
+    font-size: 0.75rem;
+  }
+
+  .stat-value.compact-value {
+    font-size: 0.7rem;
+  }
+
+  .stat-label.compact-label {
+    font-size: 0.55rem;
+  }
+}
+
+/* Responsive ultra-compact pour très petits écrans */
+@media (max-width: 480px) {
+  .chart-card.compact-chart {
+    max-height: 200px; /* Hauteur très réduite */
+    padding: 0.3rem;
+  }
+
+  .chart-title.compact-chart-title {
+    font-size: 0.75rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .summary-card.compact {
+    max-height: 70px;
+    padding: 0.3rem;
+  }
+
+  .summary-info.compact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Styles avancés pour Chart.js et Recharts */
+.chart-card.compact-chart {
+  --chart-font-size: 13px;
+  --chart-font-weight: 600;
+  --chart-font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.chart-card.compact-chart .recharts-text {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  fill: #1e293b !important;
+}
+
+.chart-card.compact-chart .recharts-cartesian-axis-tick-value {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  fill: #475569 !important;
+}
+
+.chart-card.compact-chart .recharts-legend-item-text {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  fill: #1e293b !important;
+}
+
+/* Animation d'entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-card.compact,
+.chart-card.compact-chart,
+.monthly-table-container.compact-table {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Amélioration des scrollbars sur mobile */
+@media (max-width: 768px) {
+  .stats-container::-webkit-scrollbar,
+  .summary-card.compact::-webkit-scrollbar,
+  .chart-card.compact-chart::-webkit-scrollbar,
+  .monthly-table-container.compact-table::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+/* Correction pour les appareils iOS qui ignorent parfois overflow: hidden */
+@supports (-webkit-overflow-scrolling: touch) {
+  html,
+  body {
+    overflow: hidden !important;
+    position: fixed !important;
+    -webkit-overflow-scrolling: auto !important;
+  }
+}
+
+/* Empêcher le rebond sur iOS */
+.stats-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Si vous utilisez un router ou un layout parent */
+.router-view,
+.layout-container,
+.main-content {
+  height: 100vh !important;
+  overflow: hidden !important;
+}

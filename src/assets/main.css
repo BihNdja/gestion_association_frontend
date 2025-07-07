@@ -1,0 +1,24 @@
+/* Supprimez cette ligne */
+/* @import './base.css'; */
+
+#app {
+  max-width: 100%; /* Remplace 1280px pour éviter une restriction */
+  margin: 0 auto;
+  padding: 0; /* Supprime le padding pour laisser Bootstrap gérer */
+  font-weight: normal;
+  min-height: 100vh; /* Assure que l'appli prend toute la hauteur */
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}

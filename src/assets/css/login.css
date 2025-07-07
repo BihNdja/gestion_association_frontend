@@ -1,0 +1,181 @@
+/* Centrer le formulaire verticalement et horizontalement */
+.page-login {
+  min-height: 100vh;
+  background-image: url('../images/compta.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ajout d'une superposition pour améliorer la lisibilité */
+.page-login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+/* Style de la carte (hauteur réduite) */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 61, 130, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: rgba(255, 255, 255, 0.6);
+  position: relative;
+  max-width: 350px;
+  width: 100%;
+  z-index: 1; /* S'assurer que la carte est au-dessus de la superposition */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 45px rgba(0, 61, 130, 0.25);
+  transition: all 0.3s ease;
+}
+
+/* Style du corps de la carte (padding réduit) */
+.card-body {
+  padding: 1rem;
+}
+
+/* Style du titre principal ("Bienvenue" ou "Réinitialisation du mot de passe") */
+.welcome-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgb(0, 0, 80);
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+/* Style du sous-titre "Connexion à l'interface de gestion" */
+.interface-title,
+.reset-subtitle {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #555;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Style des labels */
+.form-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(0, 0, 70);
+  margin-bottom: 0.3rem;
+}
+
+/* Style des champs avec icônes */
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  transition: border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control.with-icon {
+  padding-left: 1.2rem;
+}
+
+.form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+}
+
+/* Style des icônes dans les champs */
+.input-icon {
+  position: absolute;
+  left: 0.5rem;
+  top: 70%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 0.8rem;
+}
+
+/* Style du bouton */
+.btn-primary {
+  background-color: #003d82;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #003d82;
+}
+
+/* Style pour le lien "Mot de passe oublié ?" */
+.forgot-password-link {
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password-link:hover {
+  color: #003d82;
+  text-decoration: underline;
+}
+
+/* Style pour le lien "Retour à la connexion" */
+.back-to-login-link {
+  font-size: 0.8rem;
+  color: #0056b3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-to-login-link:hover {
+  color: #003d82;
+  text-decoration: underline;
+}
+
+/* Style pour le lien "Pas de compte ? Inscrivez-vous" */
+.register-link {
+  font-size: 0.8rem;
+  color: #0056b3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #003d82;
+  text-decoration: underline;
+}
+
+/* Style des messages de succès ou d'erreur */
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.mb-3,
+.mb-4,
+.mb-5 {
+  margin-bottom: 0.5rem !important;
+}
+
+.form-label,
+.welcome-text,
+.interface-title,
+.reset-subtitle,
+.forgot-password-link,
+.register-link {
+  line-height: 1.2;
+}

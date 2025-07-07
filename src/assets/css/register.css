@@ -1,0 +1,153 @@
+/* src/assets/css/register.css */
+
+/* Centrer le formulaire verticalement et horizontalement */
+.page-login {
+  min-height: 100vh;
+  background-image: url('../images/compta.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Ajout d'une superposition pour améliorer la lisibilité */
+.page-login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+/* Style de la carte */
+.card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 61, 130, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 45px rgba(0, 61, 130, 0.25);
+  transition: all 0.3s ease;
+}
+
+/* Style du corps de la carte */
+.card-body {
+  padding: 1.5rem; /* Réduit de 2rem à 1.5rem pour donner plus d'espace */
+}
+
+/* Style du titre principal ("Inscription") */
+.welcome-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgb(0, 0, 80);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Style du sous-titre "Créer un nouveau compte" */
+.interface-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #555;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Style des labels */
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgb(0, 0, 70);
+  margin-bottom: 0.5rem;
+}
+
+/* Style des champs avec icônes */
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control.with-icon {
+  padding-left: 2.2rem; /* Réduit de 2.5rem à 2.2rem pour s'adapter à la nouvelle taille des icônes */
+}
+
+/* Réduire la taille de la police des placeholders */
+.form-control::placeholder {
+  font-size: 0.7rem;
+  color: #999;
+}
+
+/* Ajustement pour les champs dans une grille */
+.row .col-6 .form-control {
+  width: 100%; /* S'assurer que le champ prend toute la largeur de la colonne */
+}
+
+/* Ajout d'espacement entre les colonnes */
+.row .col-6 {
+  padding-right: 0.5rem; /* Espacement à droite */
+  padding-left: 0.5rem; /* Espacement à gauche */
+}
+
+/* Style des icônes dans les champs */
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 70%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 0.9rem; /* Réduit de 1.2rem à 1rem */
+}
+
+/* Ajustement pour les icônes dans les colonnes */
+.row .col-6 .input-icon {
+  left: 0.75rem; /* S'assurer que l'icône reste bien positionnée */
+}
+
+/* Style du bouton */
+.btn-primary {
+  background-color: #003d82;
+  border: none;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #003d82;
+}
+
+/* Style pour le lien "Déjà un compte ? Connectez-vous" */
+.register-link {
+  font-size: 0.9rem;
+  color: #0056b3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #003d82;
+  text-decoration: underline;
+}
+
+/* Style des messages de succès ou d'erreur */
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}

@@ -1,0 +1,465 @@
+/* GARANTIR UNE PAGE COMPLÈTEMENT FIXE */
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Bloquer tout défilement au niveau global */
+  border-radius: 0 !important; /* Forcer les bordures droites */
+}
+
+/* RESET POUR LE LAYOUT PRINCIPAL */
+.layout {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* AJUSTEMENT DU HEADER FIXE */
+.fixed-header {
+  position: fixed;
+  top: 10px;
+  left: 250px; /* Ajusté pour votre sidebar */
+  right: 20px;
+  z-index: 1100;
+  height: 70px; /* Hauteur réduite */
+}
+
+/* CONTENEUR GLOBAL DU DASHBOARD - AJUSTÉ POUR ÊTRE SOUS LE HEADER */
+.dashboard-container {
+  position: absolute;
+  top: 125px; /* Plus d'espace pour éviter le masquage */
+  left: 210px; /* Largeur de votre sidebar */
+  right: 0;
+  bottom: 0; /* Étendre jusqu'en bas pour maximiser l'espace */
+  padding: 0.6rem; /* Padding réduit */
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden; /* Pas de scroll global */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CONTENU PRINCIPAL - DÉFILEMENT INTERNE */
+.scrollable-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* Gap réduit */
+  overflow-y: auto; /* Activer le défilement vertical global */
+  padding: 0;
+}
+
+/* CARDS PRINCIPALES - OPTIMISÉES POUR 2 COLONNES */
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour membres et cotisations */
+  gap: 0.5rem; /* Gap réduit */
+  flex-shrink: 0; /* Ne pas rétrécir */
+  max-height: 30vh; /* Limiter la hauteur pour les cartes principales */
+}
+
+/* SECTION GRAPHIQUES - NOUVELLE GRILLE */
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les graphiques */
+  gap: 0.6rem;
+  flex: 1; /* Prend l'espace restant */
+  min-height: 0; /* Important pour flexbox */
+  max-height: 60vh; /* Limiter la hauteur pour les graphiques */
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 15px; /* Bordures réduites */
+  padding: 0.6rem; /* Padding réduit */
+  box-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.03),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow-y: auto; /* Activer le défilement interne */
+  min-height: auto; /* Hauteur automatique */
+  max-height: 100%; /* S'adapter à l'espace disponible */
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px; /* Barre fine */
+  background: linear-gradient(90deg, #007bff, #00d4ff);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover::before {
+  transform: scaleX(1);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px); /* Moins de mouvement */
+  box-shadow:
+    0 6px 20px rgba(0, 123, 255, 0.12),
+    0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* MISE EN AVANT DE LA CARTE COTISATIONS */
+.cotisation-card {
+  position: relative;
+  overflow-y: auto; /* Défilement interne */
+}
+
+.cotisation-card::before {
+  background: linear-gradient(90deg, #007bff, #00d4ff);
+}
+
+.cotisation-card .card-icon {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+
+.cotisation-card .card-value {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.2rem;
+}
+
+.cotisation-card .card-link {
+  background: rgba(0, 123, 255, 0.08);
+  color: #007bff;
+}
+
+.cotisation-card .card-link:hover {
+  background: rgba(0, 123, 255, 0.15);
+}
+
+/* ICÔNES ULTRA RÉDUITES */
+.card-icon {
+  font-size: 1.2rem; /* Réduit */
+  color: #007bff;
+  margin-bottom: 0.4rem; /* Moins d'espace */
+  display: block;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .card-icon {
+  transform: scale(1.03); /* Très léger grossissement */
+  color: #0056b3;
+}
+
+/* TEXTES ULTRA COMPACTS */
+.card-title {
+  font-size: 0.7rem; /* Réduit */
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.card-value {
+  font-size: 1.2rem; /* Réduit */
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.2rem;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-description {
+  font-size: 0.65rem; /* Très petit */
+  color: #6c757d;
+  margin-top: 0.2rem;
+  line-height: 1.2;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 0.3rem; /* Moins d'espace */
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.65rem; /* Très petit */
+  padding: 0.15rem 0.5rem; /* Ultra compact */
+  border-radius: 10px;
+  background: rgba(0, 123, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card-link:hover {
+  background: rgba(0, 123, 255, 0.15);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* STYLES SPÉCIFIQUES AUX GRAPHIQUES */
+.chart-card {
+  flex: 1; /* Prend l'espace restant */
+  padding: 0.8rem; /* Padding réduit pour plus d'espace aux graphiques */
+  background: white;
+  border-radius: 15px;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important pour flexbox */
+  max-height: 100%; /* S'adapter à l'espace disponible */
+  overflow-y: auto; /* Activer le défilement interne */
+}
+
+/* CENTRER LES TITRES ET SOUS-TITRES DES CARTES GRAPHIQUES */
+.chart-card .card-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  text-transform: none;
+  letter-spacing: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrer horizontalement */
+  gap: 0.5rem;
+  text-align: center; /* Centrer le texte */
+}
+
+.chart-card .card-title i {
+  font-size: 1rem;
+  color: #007bff;
+}
+
+.chart-card .card-description {
+  font-size: 0.7rem;
+  color: #6c757d;
+  margin-bottom: 0.8rem; /* Marge réduite pour plus d'espace au graphique */
+  line-height: 1.3;
+  text-align: center; /* Centrer le texte */
+}
+
+.chart-container {
+  flex: 1; /* Prend tout l'espace disponible */
+  position: relative;
+  min-height: 150px; /* Réduit pour plus de flexibilité */
+  max-height: 100%; /* Limiter à la hauteur du parent */
+  animation: fadeInUp 0.5s ease-out;
+  padding-bottom: 10px; /* Padding pour éviter le masquage du bas */
+}
+
+.chart-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100%; /* Empêche le canvas de dépasser */
+}
+
+/* GRAPHIQUE EN LIGNE (PLEINE LARGEUR) */
+.dashboard-card.chart-card:not(.charts-row .chart-card) {
+  grid-column: 1 / -1; /* Pleine largeur pour le graphique en ligne */
+  margin-top: 0.6rem;
+}
+
+/* HOVER EFFECTS POUR LES GRAPHIQUES */
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(0, 123, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* RESPONSIVE AMÉLIORÉ */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    left: 180px; /* Sidebar plus petite */
+    top: 95px; /* Ajusté */
+  }
+
+  .fixed-header {
+    left: 190px;
+    height: 65px;
+  }
+
+  .cards-row {
+    grid-template-columns: repeat(2, 1fr); /* Maintenir 2 colonnes */
+    gap: 0.6rem;
+    max-height: 35vh; /* Réduit pour petits écrans */
+  }
+
+  .charts-row {
+    grid-template-columns: 1fr; /* Une seule colonne pour les graphiques */
+    gap: 0.8rem;
+    max-height: 55vh; /* Réduit pour petits écrans */
+  }
+
+  .chart-container {
+    min-height: 140px; /* Réduit pour petits écrans */
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    left: 0; /* Pas de sidebar sur mobile */
+    top: 105px; /* Plus d'espace sur mobile */
+    padding: 0.5rem;
+  }
+
+  .fixed-header {
+    left: 10px;
+    right: 10px;
+    height: 80px;
+  }
+
+  .cards-row {
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    gap: 0.4rem;
+    max-height: 30vh; /* Réduit pour mobile */
+  }
+
+  .charts-row {
+    grid-template-columns: 1fr; /* Une seule colonne pour les graphiques */
+    gap: 0.6rem;
+    max-height: 50vh; /* Réduit pour mobile */
+  }
+
+  .dashboard-card {
+    padding: 0.5rem;
+    max-height: 30vh; /* Limiter la hauteur des cartes sur mobile */
+  }
+
+  .card-value {
+    font-size: 1rem;
+  }
+
+  .chart-card {
+    padding: 0.8rem;
+    max-height: 50vh; /* Limiter la hauteur des cartes graphiques */
+  }
+
+  .chart-container {
+    min-height: 130px; /* Réduit pour mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    top: 115px; /* Encore plus d'espace */
+    padding: 0.4rem;
+  }
+
+  .card-icon {
+    font-size: 1rem;
+  }
+
+  .card-value {
+    font-size: 0.9rem;
+  }
+
+  .chart-card {
+    padding: 0.6rem;
+    max-height: 45vh; /* Encore plus compact */
+  }
+
+  .chart-container {
+    min-height: 120px; /* Réduit pour petits écrans */
+  }
+}
+
+/* ANIMATIONS D'ENTRÉE */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-card {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.dashboard-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.dashboard-card:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+/* ANIMATIONS POUR LES GRAPHIQUES */
+.chart-card {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.charts-row .chart-card:nth-child(1) {
+  animation-delay: 0.3s;
+}
+.charts-row .chart-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+/* AJUSTEMENTS POUR LA SIDEBAR */
+.dashboard-container.sidebar-collapsed {
+  left: 80px;
+}
+
+.dashboard-container.sidebar-expanded {
+  left: 280px;
+}
+
+/* STYLES POUR LES ÉTATS DE CHARGEMENT DES GRAPHIQUES */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.chart-loading::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e9ecef;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* STYLISER LES BARRES DE DÉFILEMENT */
+.dashboard-card::-webkit-scrollbar,
+.chart-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dashboard-card::-webkit-scrollbar-thumb,
+.chart-card::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 123, 255, 0.3);
+  border-radius: 3px;
+}
+
+.dashboard-card::-webkit-scrollbar-track,
+.chart-card::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
