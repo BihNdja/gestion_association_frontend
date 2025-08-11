@@ -9,7 +9,7 @@ import AddCotisation from '@/views/AddCotisation.vue'
 import CotisationList from '@/views/CotisationList.vue'
 import StatsView from '@/views/StatsView.vue'
 import SettingsPage from '@/views/SettingsPage.vue'
-import Accueil from '@/views/Accueil.vue'
+import Accueil from '@/views/PageAccueil.vue'
 import ActivityHistory from '@/views/Historique.vue' // Ajusté pour correspondre au fichier
 
 const routes = [
